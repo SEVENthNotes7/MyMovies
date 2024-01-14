@@ -18,8 +18,14 @@
             <h1>lgon</h1>
             <label>email</label>
             <input type="text" name="email"><br>
+            @if ($errors->has('email'))
+                <span>{{ $errors->first('email') }}</span><br>
+            @endif
             <label>password</label>
             <input type="password" name="password"><br>
+            @if ($errors->has('password'))
+                <span>{{ $errors->first('password') }}</span><br>
+            @endif
             <button type="submit">Login</button>
         </form>
         <a href="{{ route('view.register') }}">Register new account</a>

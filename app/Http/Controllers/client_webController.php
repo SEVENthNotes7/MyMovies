@@ -26,11 +26,13 @@ class client_webController extends Controller
     {
         return view('client.web_pages.home');
     }
-    public function viewMyVideos($id){
+    public function viewMyVideos($id)
+    {
         $id = decrypt($id);
         return view('client.web_pages.myvideos');
     }
-    public function myProfile($id){
+    public function myProfile($id)
+    {
         $id = decrypt($id);
         dd($id);
         return view('client.web_pages.profile');
@@ -75,9 +77,21 @@ class client_webController extends Controller
             return redirect(route('view.login'))->with('message', 'Login Failed!');
         }
     }
-    public function userUploadVideo(Request $request, $id){
-        $data = $request->all();
+    public function userUploadVideo(Request $request, $id)
+    {
         $id = decrypt($id);
-        dd($data);
+
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'tumbnail' => 'required',
+            'video' => 'required'
+        ]);
+
+        $data = $request->all();
+
+        dd($data['video']);
+
+
     }
 }

@@ -4,6 +4,23 @@
         <form action="{{ route('user.uploader.video', ['id' => encrypt(auth()->user()->id)]) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
+            <div class="messages">
+                @if (session('message'))
+                    <span>{{ session('message') }}</span>
+                @endif
+                @if ($errors->has('title'))
+                    <span>{{ $errors->first('title') }}</span>
+                @endif
+                @if ($errors->has('description'))
+                    <span>{{ $errors->first('description') }}</span>
+                @endif
+                @if ($errors->has('tumbnail'))
+                    <span>{{ $errors->first('tumbnail') }}</span>
+                @endif
+                @if ($errors->has('video'))
+                    <span>{{ $errors->first('video') }}</span>
+                @endif
+            </div>
             <label>title</label><input type="text" name="title">
             <label>description</label><input type="text" name="description">
             <label>Tumbnail</label><input type="file" name="tumbnail">
