@@ -28,7 +28,6 @@ class client_webController extends Controller
     }
     public function viewMyVideos($id){
         $id = decrypt($id);
-        dd($id);
         return view('client.web_pages.myvideos');
     }
     public function myProfile($id){
@@ -75,5 +74,10 @@ class client_webController extends Controller
         } else {
             return redirect(route('view.login'))->with('message', 'Login Failed!');
         }
+    }
+    public function userUploadVideo(Request $request, $id){
+        $data = $request->all();
+        $id = decrypt($id);
+        dd($data);
     }
 }

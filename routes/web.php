@@ -32,9 +32,12 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [client_webController::class, 'validateLogin'])->name('login');
 });
 
-Route::group(['middleware' => 'auth'], function(){
-    // view home.
+Route::group(['middleware' => 'auth'], function () {
+    // view home and navbar.
     Route::get('/home', [client_webController::class, 'viewHome'])->name('Home');
     Route::get('/myvideos/{id}', [client_webController::class, 'viewMyVideos'])->name('view.myvideos');
     Route::get('/profile/{id}', [client_webController::class, 'myProfile'])->name('view.profile');
+    // user video uploader.
+    Route::post('/uploaduservideo/{id}', [client_webController::class, 'userUploadVideo'])->name('user.uploader.video');
 });
+    
