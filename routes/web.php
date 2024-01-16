@@ -41,4 +41,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/uploaduservideo/{id}', [client_webController::class, 'userUploadVideo'])->name('user.uploader.video');
     // page video player.
     Route::get('/videoplayer/{id}', [client_webController::class, 'videoPlayer'])->name('video.player');
+    // search video.
+    Route::get('/search', [client_webController::class, 'searchVideo'])->name('search.video');
 });

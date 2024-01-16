@@ -7,7 +7,7 @@ use Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
+
 
 class client_webController extends Controller
 {
@@ -131,6 +131,13 @@ class client_webController extends Controller
     }
     public function searchVideo(Request $request)
     {
+        $request->validate([
+            'search' => 'required'
+        ]);
         $data = $request->all();
+        $title = $data['search'];
+
+        $findings = tableMyVideo::where('title', $title)->get();
+        dd($findings);
     }
 }
