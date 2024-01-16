@@ -34,7 +34,7 @@
                 <h3>{{ $data->title }}</h3>
                 <p>{{ $data->description }}</p>
                 <img src="{{ asset('images/tumbnails/' . $data->tumbnail) }}" alt="image" width="150px" height="150px">
-                <a href="#"><button>play</button></a>
+                <a href="{{ route('video.player', ['id' => encrypt($data->id)]) }}"><button>play</button></a>
             </div>
         @endforeach
     </div>

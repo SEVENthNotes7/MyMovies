@@ -39,6 +39,12 @@ class client_webController extends Controller
         $id = decrypt($id);
         return view('client.web_pages.profile');
     }
+    public function videoPlayer($id)
+    {
+        $id = decrypt($id);
+        $video = tableMyVideo::where('id', $id)->first();
+        return view('client.web_pages.playVideo', compact('video'));
+    }
 
     public function registerAccount(Request $request)
     {
@@ -123,7 +129,8 @@ class client_webController extends Controller
     {
         $id = decrypt($id);
     }
-    public function searchVideo(Request $request){
+    public function searchVideo(Request $request)
+    {
         $data = $request->all();
     }
 }
