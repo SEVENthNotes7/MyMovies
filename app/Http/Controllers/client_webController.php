@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tableMyVideo;
 use Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,17 +25,18 @@ class client_webController extends Controller
     }
     public function viewHome()
     {
-        return view('client.web_pages.home');
+        $data = tableMyVideo::all();
+        return view('client.web_pages.home', compact('data'));
     }
     public function viewMyVideos($id)
     {
         $id = decrypt($id);
-        return view('client.web_pages.myvideos');
+        $data = tableMyVideo::where('Authors_id', $id)->get();
+        return view('client.web_pages.myvideos', compact('data'));
     }
     public function myProfile($id)
     {
         $id = decrypt($id);
-        dd($id);
         return view('client.web_pages.profile');
     }
 
@@ -80,6 +82,7 @@ class client_webController extends Controller
     public function userUploadVideo(Request $request, $id)
     {
         $id = decrypt($id);
+        $created_at = Carbon::now()->toDateString();
 
         $request->validate([
             'title' => 'required',
@@ -90,8 +93,37 @@ class client_webController extends Controller
 
         $data = $request->all();
 
-        dd($data['video']);
+        $tumbnail = $request->file('tumbnail');
+        $video = $request->file('video');
 
+        $destinationPath_tumbnail = 'images/tumbnails';
+        $destinationPath_videos = 'images/videos';
 
+        $profileTumbnail = date('YmdHis') . "." . $tumbnail->getClientOriginalExtension();
+        $profileVideo = date('YmdHis') . "." . $video->getClientOriginalExtension();
+
+        $tumbnail->move($destinationPath_tumbnail, $profileTumbnail);
+        $video->move($destinationPath_videos, $profileVideo);
+
+        $data['tumbnail'] = $profileTumbnail;
+        $data['videos'] = $profileVideo;
+
+        tableMyVideo::insert([
+            'Authors_id' => $id,
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'tumbnail' => $data['tumbnail'],
+            'video' => $data['videos'],
+            'created_at' => $created_at
+        ]);
+
+        return $this->viewMyVideos(encrypt($id))->with('message', 'Video uploades successfully.');
+    }
+    public function userDeleteVideo($id)
+    {
+        $id = decrypt($id);
+    }
+    public function searchVideo(Request $request){
+        $data = $request->all();
     }
 }

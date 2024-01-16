@@ -37,7 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [client_webController::class, 'viewHome'])->name('Home');
     Route::get('/myvideos/{id}', [client_webController::class, 'viewMyVideos'])->name('view.myvideos');
     Route::get('/profile/{id}', [client_webController::class, 'myProfile'])->name('view.profile');
-    // user video uploader asdf.
+    // user video uploader.
     Route::post('/uploaduservideo/{id}', [client_webController::class, 'userUploadVideo'])->name('user.uploader.video');
 });
-    

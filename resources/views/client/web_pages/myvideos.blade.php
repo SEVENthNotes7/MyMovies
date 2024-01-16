@@ -28,4 +28,15 @@
             <button type="submit">upload</button>
         </form>
     </div>
+    <div class="user-video-section">
+        @foreach ($data as $data)
+            <div class="user-video">
+                <h3>{{ $data->title }}</h3>
+                <p>{{ $data->description }}</p>
+                <img src="{{ asset('images/tumbnails/' . $data->tumbnail) }}" alt="image" width="150px" height="150px">
+                <a href="#"><button>play</button></a>
+            </div>
+        @endforeach
+    </div>
+
 @stop
