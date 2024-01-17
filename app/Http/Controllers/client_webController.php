@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tableMyVideo;
 use Auth;
 use App\Models\User;
+use App\Models\tableMyVideo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
 
 
 class client_webController extends Controller
@@ -25,7 +28,7 @@ class client_webController extends Controller
     }
     public function viewHome()
     {
-        $data = tableMyVideo::all();
+        $data = tableMyVideo::all()->sortBy('created_by');
         return view('client.web_pages.home', compact('data'));
     }
     public function viewMyVideos($id)
@@ -85,6 +88,12 @@ class client_webController extends Controller
             return redirect(route('view.login'))->with('message', 'Login Failed!');
         }
     }
+    public function logout(): RedirectResponse
+    {
+        Session::flush();
+        Auth::logout();
+        return redirect('login');
+    }
     public function userUploadVideo(Request $request, $id)
     {
         $id = decrypt($id);
@@ -125,10 +134,17 @@ class client_webController extends Controller
 
         return $this->viewMyVideos(encrypt($id))->with('message', 'Video uploades successfully.');
     }
+    public function editUserVideo($id)
+    {
+        $id = decrypt($id);
+        dd($id);
+    }
     public function userDeleteVideo($id)
     {
         $id = decrypt($id);
+        dd($id);
     }
+
     public function searchVideo(Request $request)
     {
         $request->validate([

@@ -7,6 +7,7 @@
 @include('client.includes.navbar')
 <body>
     <div class="container">
+        @include('client.includes.search')
         @yield('content')
     </div>
 
