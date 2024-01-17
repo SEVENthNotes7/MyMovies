@@ -7,9 +7,10 @@ use App\Models\User;
 use App\Models\tableMyVideo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Http\RedirectResponse;
 
 
 class client_webController extends Controller
@@ -30,6 +31,10 @@ class client_webController extends Controller
     {
         $data = tableMyVideo::all()->sortBy('created_by');
         return view('client.web_pages.home', compact('data'));
+    }
+    public function viewSearch()
+    {
+        return view('client.web_pages.search');
     }
     public function viewMyVideos($id)
     {
@@ -137,23 +142,17 @@ class client_webController extends Controller
     public function editUserVideo($id)
     {
         $id = decrypt($id);
-        dd($id);
+        $data = tableMyVideo::where('id', $id)->first();
+        return view('client.web_pages.edit', compact('data'));
     }
-    public function userDeleteVideo($id)
+    public function userDeleteVideo($id, $image, $video)
     {
         $id = decrypt($id);
-        dd($id);
-    }
-
-    public function searchVideo(Request $request)
-    {
-        $request->validate([
-            'search' => 'required'
-        ]);
-        $data = $request->all();
-        $title = $data['search'];
-
-        $findings = tableMyVideo::where('title', $title)->get();
-        dd($findings);
+        if ($id != null) {
+            tableMyVideo::where('id', $id)->delete();
+            File::delete(public_path('images/tumbnails/' . $image)); //delete tumbnail
+            File::delete(public_path('images/videos/' . $video)); //delete video
+        }
+        return $this->viewMyVideos(encrypt($id));
     }
 }

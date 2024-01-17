@@ -36,7 +36,7 @@
                 <img src="{{ asset('images/tumbnails/' . $data->tumbnail) }}" alt="image" width="150px" height="150px">
                 <a href="{{ route('video.player', ['id' => encrypt($data->id)]) }}"><button>play</button></a>
                 <a href="{{ route('edit.user.video', ['id' => encrypt($data->id)]) }}"><button>edit</button></a>
-                <a href="{{ route('user.delete.video', ['id' => encrypt($data->id)]) }}"><button>Delete</button></a>
+                <a href="{{ route('user.delete.video', ['id' => encrypt($data->id), 'image' => $data->tumbnail, 'video' => $data->video]) }}"><button>Delete</button></a>
             </div>
         @endforeach
     </div>

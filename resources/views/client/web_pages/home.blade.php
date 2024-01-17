@@ -1,6 +1,7 @@
 @extends('client.layout.clientlayout')
 @section('content')
     <div class="video-section">
+        
         @foreach ($data as $data)
             <h3>{{ $data->title }}</h3>
             <p>{{ $data->description }}</p>

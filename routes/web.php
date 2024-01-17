@@ -46,12 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/uploaduservideo/{id}', [client_webController::class, 'userUploadVideo'])->name('user.uploader.video');
     // page video player.
     Route::get('/videoplayer/{id}', [client_webController::class, 'videoPlayer'])->name('video.player');
-    // search video.
-    Route::get('/search', [client_webController::class, 'searchVideo'])->name('search.video');
     // view edit user video.
     Route::get('/editvideo/{id}', [client_webController::class, 'editUserVideo'])->name('edit.user.video');
     // delete video.
-    Route::get('deletevideo/{id}', [client_webController::class, 'userDeleteVideo'])->name('user.delete.video');
+    Route::get('deletevideo/{id}/{image}/{video}', [client_webController::class, 'userDeleteVideo'])->name('user.delete.video');
 
     // logout.
     Route::get('logout', [client_webController::class, 'logout'])->name('logout');
