@@ -53,7 +53,6 @@ class client_webController extends Controller
         $video = tableMyVideo::where('id', $id)->first();
         return view('client.web_pages.playVideo', compact('video'));
     }
-
     public function registerAccount(Request $request)
     {
         $request->validate([

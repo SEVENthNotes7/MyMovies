@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/editvideo/{id}', [client_webController::class, 'editUserVideo'])->name('edit.user.video');
     // delete video.
     Route::get('deletevideo/{id}/{image}/{video}', [client_webController::class, 'userDeleteVideo'])->name('user.delete.video');
+    // home play button.
 
     // logout.
     Route::get('logout', [client_webController::class, 'logout'])->name('logout');
