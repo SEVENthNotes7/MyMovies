@@ -154,4 +154,14 @@ class client_webController extends Controller
         }
         return $this->viewMyVideos(encrypt($id));
     }
+    public function updateUserVideos(Request $request, $id)
+    {
+        $id = decrypt($id);
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+        $data = $request->all();
+        dd($data);
+    }
 }
