@@ -137,7 +137,7 @@ class client_webController extends Controller
         ]);
 
         return $this->viewMyVideos(encrypt($id))->with('message', 'Video uploades successfully.');
-    }
+    } 
     public function editUserVideo($id)
     {
         $id = decrypt($id);
